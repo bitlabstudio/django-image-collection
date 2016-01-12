@@ -46,7 +46,6 @@ EXTERNAL_APPS = [
 
 INTERNAL_APPS = [
     'image_collection',
-    'image_collection.tests.test_app',
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS

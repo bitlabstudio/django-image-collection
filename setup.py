@@ -52,7 +52,8 @@ setup(
     long_description=read('README.rst'),
     license='The MIT License',
     platforms=['OS Independent'],
-    keywords='django, app, reusable, images, pictures, collection, slider, gallery, carousel',
+    keywords=('django, app, reusable, images, pictures, collection, slider,'
+              ' gallery, carousel'),
     author='Daniel Kaufhold',
     author_email='daniel.kaufhold@bitmazk.com',
     url="https://github.com/bitmazk/django-image-collection",
