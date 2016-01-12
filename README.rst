@@ -1,7 +1,7 @@
 Django Image Collection
-============
+=======================
 
-A reusable Django app to organise images in collections.
+A reusable Django app to organise images in collections and output them in sliders or galleries by simply adding a template tag.
 
 Installation
 ------------
