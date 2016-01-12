@@ -7,3 +7,4 @@ mock
 tox
 django-compat
 six
+pillow
