@@ -2,7 +2,7 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _, ugettext as __
+from django.utils.translation import ugettext_lazy as _
 
 
 @python_2_unicode_compatible
@@ -17,8 +17,8 @@ class ImageCollection(models.Model):
 
     class Meta:
         ordering = ('name', 'identifier')
-        verbose_name = __('image collection'),
-        verbose_name_plural = __('image collections'),
+        verbose_name = _('image collection')
+        verbose_name_plural = _('image collections')
 
     name = models.CharField(
         max_length=512,
@@ -76,8 +76,8 @@ class ImageSlide(models.Model):
 
     class Meta:
         ordering = ('collection', 'start_date', 'end_date', 'alt_text')
-        verbose_name = __('image')
-        verbose_name_plural = __('images')
+        verbose_name = _('image')
+        verbose_name_plural = _('images')
 
     collection = models.ForeignKey(
         ImageCollection,
@@ -92,7 +92,7 @@ class ImageSlide(models.Model):
 
     caption_headline = models.CharField(
         max_length=256,
-        verbose_name=_('caption'),
+        verbose_name=_('caption headline'),
         help_text=_('This text is displayed as title of the image.'),
         blank=True,
     )
@@ -114,7 +114,8 @@ class ImageSlide(models.Model):
 
     link = models.URLField(
         verbose_name=_('link'),
-        help_text=_('Enter URL, that the image should link to.')
+        help_text=_('Enter URL, that the image should link to.'),
+        blank=True,
     )
 
     start_date = models.DateTimeField(
