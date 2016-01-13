@@ -35,8 +35,7 @@ class ImageCollection(models.Model):
         return '{0} ({1}): {2}'.format(
             self._meta.verbose_name.title(), self.pk, self.identifier)
 
-    def is_public(self):
-        """Returns True, if any image exists, that is currently published."""
+    def get_published_images(self):
         return self.images.filter(
             # TODO is this too complicated?
             models.Q(
@@ -52,7 +51,11 @@ class ImageCollection(models.Model):
                 start_date__lte=now(),
                 end_date__gte=now(),
             )
-        ).exists()
+        ).distinct()
+
+    def is_public(self):
+        """Returns True, if any image exists, that is currently published."""
+        return self.get_published_images().exists()
 
 
 @python_2_unicode_compatible
@@ -85,6 +88,14 @@ class ImageSlide(models.Model):
     image = models.ImageField(
         upload_to='image_slides',
         verbose_name=_('image'),
+    )
+
+    caption = models.CharField(
+        max_length=256,
+        verbose_name=_('caption'),
+        help_text=_('This text is displayed on top of the image or as its'
+                    ' description.'),
+        blank=True,
     )
 
     alt_text = models.CharField(
