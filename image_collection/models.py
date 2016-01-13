@@ -90,11 +90,17 @@ class ImageSlide(models.Model):
         verbose_name=_('image'),
     )
 
-    caption = models.CharField(
+    caption_headline = models.CharField(
         max_length=256,
         verbose_name=_('caption'),
-        help_text=_('This text is displayed on top of the image or as its'
-                    ' description.'),
+        help_text=_('This text is displayed as title of the image.'),
+        blank=True,
+    )
+
+    caption = models.CharField(
+        max_length=512,
+        verbose_name=_('caption'),
+        help_text=_('This text is displayed as description of the image.'),
         blank=True,
     )
 
@@ -108,7 +114,7 @@ class ImageSlide(models.Model):
 
     link = models.URLField(
         verbose_name=_('link'),
-        help_text=_('Enter URL, that the image should link to. (not required)')
+        help_text=_('Enter URL, that the image should link to.')
     )
 
     start_date = models.DateTimeField(
