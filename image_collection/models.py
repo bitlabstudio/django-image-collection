@@ -1,8 +1,56 @@
 """Models for the image_collection app."""
+import re
+from django import forms
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+
+relative_url_re = re.compile(r'^[-a-zA-Z0-9_\/]+$')
+validate_relative_url = RegexValidator(
+    relative_url_re,
+    _("Enter a valid 'relative URL' consisting of letters, numbers,"
+      " underscores, forward slashes or hyphens."), 'invalid')
+
+
+class RelativeURLFormField(forms.CharField):
+    default_validators = [validate_relative_url]
+
+    def clean(self, value):
+        value = self.to_python(value).strip()
+        return super(RelativeURLFormField, self).clean(value)
+
+
+class RelativeURLField(models.fields.CharField):
+    default_validators = [validate_relative_url]
+    description = _("Relative URL (up to %(max_length)s)")
+
+    def __init__(self, *args, **kwargs):
+        kwargs['max_length'] = kwargs.get('max_length', 50)
+        # Set db_index=True unless it's been set manually.
+        if 'db_index' not in kwargs:
+            kwargs['db_index'] = True
+        super(RelativeURLField, self).__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(RelativeURLField, self).deconstruct()
+        if kwargs.get("max_length", None) == 50:
+            del kwargs['max_length']
+        if self.db_index is False:
+            kwargs['db_index'] = False
+        else:
+            del kwargs['db_index']
+        return name, path, args, kwargs
+
+    def get_internal_type(self):
+        return "URLField"
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': RelativeURLFormField}
+        defaults.update(kwargs)
+        return super(RelativeURLField, self).formfield(**defaults)
 
 
 @python_2_unicode_compatible
@@ -112,9 +160,17 @@ class ImageSlide(models.Model):
         blank=True,
     )
 
-    link = models.URLField(
-        verbose_name=_('link'),
-        help_text=_('Enter URL, that the image should link to.'),
+    external_link = models.URLField(
+        verbose_name=_('external link'),
+        help_text=_('E.g. "http://www.example.com/my-page/". Enter absolute'
+                    ' URL, that the image should link to.'),
+        blank=True,
+    )
+
+    internal_link = RelativeURLField(
+        verbose_name=_('internal link'),
+        help_text=_('E.g. "/my-page/". Enter slug of internal pager, that the'
+                    ' image should link to.'),
         blank=True,
     )
 
@@ -132,10 +188,17 @@ class ImageSlide(models.Model):
         return '{0} ({1}): {2}'.format(
             self._meta.verbose_name.title(), self.pk, self.alt_text)
 
+    def clean(self):
+        if self.internal_link and self.external_link:
+            raise ValidationError(_('You cannot have both and internal and an'
+                                    ' external link. Please remove at least'
+                                    ' one.'))
+
     @property
     def url(self):  # pragma: no cover
         """Should always return a proper url."""
-        return self.link.strip() or self.image.url
+        return self.external_link.strip() or self.internal_link.strip() \
+               or self.image.url
 
     @url.setter
     def url(self, value):  # pragma: no cover
