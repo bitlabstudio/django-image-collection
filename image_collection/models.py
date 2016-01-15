@@ -45,7 +45,7 @@ class RelativeURLField(models.fields.CharField):
         return name, path, args, kwargs
 
     def get_internal_type(self):
-        return "URLField"
+        return "CharField"
 
     def formfield(self, **kwargs):
         defaults = {'form_class': RelativeURLFormField}
