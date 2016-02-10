@@ -113,6 +113,7 @@ class ImageSlide(models.Model):
 
     :collection: The collection this image belongs to
     :image: The image file
+    :image_mobile: Optional alternative image to be used for mobile devices
     :alt_text: What goes into the alt attribute
     :link: If the image should link to any specific URL, put it here. Best is
       to use the ``url`` property instead of this, since that falls back to the
@@ -136,6 +137,13 @@ class ImageSlide(models.Model):
     image = models.ImageField(
         upload_to='image_slides',
         verbose_name=_('image'),
+    )
+
+    image_mobile = models.ImageField(
+        upload_to='image_slides',
+        verbose_name=_('image_mobile'),
+        blank=True,
+        null=True,
     )
 
     caption_headline = models.CharField(
@@ -198,7 +206,7 @@ class ImageSlide(models.Model):
     def url(self):  # pragma: no cover
         """Should always return a proper url."""
         return self.external_link.strip() or self.internal_link.strip() \
-               or self.image.url
+            or self.image.url
 
     @url.setter
     def url(self, value):  # pragma: no cover

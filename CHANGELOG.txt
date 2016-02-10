@@ -1,6 +1,7 @@
 === 0.1.X (onggoing, to be released as 0.2) ===
 
 - fixed internal type of RelativeURLField
+- added image_mobile field
 
 === 0.1 ===
 

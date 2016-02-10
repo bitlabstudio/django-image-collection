@@ -12,7 +12,8 @@ class ImageCollectionAdmin(admin.ModelAdmin):
 
 class ImageSlideAdmin(admin.ModelAdmin):
     """Custom admin for the ``ImageSlide`` model."""
-    list_display = ('collection', 'get_headline', 'get_caption', 'image')
+    list_display = (
+        'collection', 'get_headline', 'get_caption', 'image', 'image_mobile')
 
     def get_caption(self, obj):
         return obj.caption
@@ -25,4 +26,3 @@ class ImageSlideAdmin(admin.ModelAdmin):
 
 admin.site.register(models.ImageSlide, ImageSlideAdmin)
 admin.site.register(models.ImageCollection, ImageCollectionAdmin)
-
