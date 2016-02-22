@@ -118,6 +118,8 @@ class ImageSlide(models.Model):
     :link: If the image should link to any specific URL, put it here. Best is
       to use the ``url`` property instead of this, since that falls back to the
       image url automatically.
+    :data-class: Optional. If you want to attach click events to this image,
+      fill out this field.
     :start_date: The datetime, where the image should start to be published
     :start_end: The datetime, where the image should no longer be published
 
@@ -180,6 +182,15 @@ class ImageSlide(models.Model):
         help_text=_('E.g. "/my-page/". Enter slug of internal pager, that the'
                     ' image should link to.'),
         blank=True,
+    )
+
+    data_class = models.CharField(
+        verbose_name=_('data class'),
+        max_length='512',
+        help_text=(
+            'Set this if you want to handle click events on this image via'
+            ' JavaScript.'),
+        blank=True
     )
 
     start_date = models.DateTimeField(

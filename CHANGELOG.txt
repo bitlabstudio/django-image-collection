@@ -2,6 +2,7 @@
 
 - fixed internal type of RelativeURLField
 - added image_mobile field
+- added data_class field
 
 === 0.1 ===
 
