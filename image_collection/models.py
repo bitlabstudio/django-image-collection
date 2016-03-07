@@ -118,6 +118,10 @@ class ImageSlide(models.Model):
     :link: If the image should link to any specific URL, put it here. Best is
       to use the ``url`` property instead of this, since that falls back to the
       image url automatically.
+    :mobile_link: If this collection is loaded on a mobile app, you might
+      want to link to an in-app route instead of a URL.
+    :is_visible_on_mobile: Set this to true if this slide should be shown
+      in a mobile app.
     :data-class: Optional. If you want to attach click events to this image,
       fill out this field.
     :start_date: The datetime, where the image should start to be published
@@ -183,6 +187,16 @@ class ImageSlide(models.Model):
                     ' image should link to.'),
         blank=True,
     )
+
+    mobile_link = models.CharField(
+        max_length=4000,
+        verbose_name=_('mobile link'),
+        help_text=_(
+            'i.e. "{route: "shop/cateogry", categoryName: "artworks"}"'),
+        blank=True,
+    )
+
+    is_visible_on_mobile = models.BooleanField(default=False)
 
     data_class = models.CharField(
         verbose_name=_('data class'),
