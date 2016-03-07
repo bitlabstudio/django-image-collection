@@ -200,7 +200,7 @@ class ImageSlide(models.Model):
 
     data_class = models.CharField(
         verbose_name=_('data class'),
-        max_length='512',
+        max_length=512,
         help_text=(
             'Set this if you want to handle click events on this image via'
             ' JavaScript.'),
