@@ -134,6 +134,11 @@ class ImageSlide(models.Model):
         verbose_name = _('image')
         verbose_name_plural = _('images')
 
+    update_date = models.DateTimeField(
+        verbose_name=_('update date'),
+        null=True, blank=True,
+    )
+
     collection = models.ForeignKey(
         ImageCollection,
         verbose_name=_('image collection'),

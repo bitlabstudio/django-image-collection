@@ -4,6 +4,7 @@
 - added image_mobile field
 - added data_class field
 - added fields for mobile apps
+- added update_date field
 
 === 0.1 ===
 
