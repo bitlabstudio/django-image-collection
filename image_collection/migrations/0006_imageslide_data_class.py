@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='imageslide',
             name='data_class',
-            field=models.CharField(help_text=b'Set this if you want to handle click events on this image via JavaScript.', max_length=b'512', verbose_name='data class', blank=True),
+            field=models.CharField(help_text='Set this if you want to handle click events on this image via JavaScript.', max_length='512', verbose_name='data class', blank=True),
         ),
     ]

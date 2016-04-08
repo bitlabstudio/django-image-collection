@@ -1,5 +1,6 @@
 === 0.1.X (onggoing, to be released as 0.2) ===
 
+- prepared app for Django1.9 and Python3.5
 - fixed internal type of RelativeURLField
 - added image_mobile field
 - added data_class field

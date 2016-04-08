@@ -1,11 +1,8 @@
 """Settings that need to be set in order to run the tests."""
 import os
-import logging
+
 
 DEBUG = True
-
-logging.getLogger("factory").setLevel(logging.WARN)
-
 SITE_ID = 1
 
 APP_ROOT = os.path.abspath(
@@ -15,7 +12,7 @@ APP_ROOT = os.path.abspath(
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+        'NAME': 'image_collection',
     }
 }
 
@@ -28,9 +25,20 @@ STATICFILES_DIRS = (
     os.path.join(APP_ROOT, 'static'),
 )
 
-TEMPLATE_DIRS = (
-    os.path.join(APP_ROOT, 'tests/test_app/templates'),
-)
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'APP_DIRS': True,
+    'DIRS': [os.path.join(APP_ROOT, 'tests/test_app/templates')],
+    'OPTIONS': {
+        'context_processors': (
+            'django.contrib.auth.context_processors.auth',
+            'django.core.context_processors.i18n',
+            'django.core.context_processors.request',
+            'django.core.context_processors.media',
+            'django.core.context_processors.static',
+        )
+    }
+}]
 
 EXTERNAL_APPS = [
     'django.contrib.admin',
