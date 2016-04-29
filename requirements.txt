@@ -2,3 +2,4 @@ django
 six
 django-compat
 pillow
+django-generic-positions

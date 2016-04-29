@@ -27,6 +27,7 @@ Add ``image_collection`` to your ``INSTALLED_APPS``
     INSTALLED_APPS = (
         ...,
         'image_collection',
+        'generic_positions',
     )
 
 Add the ``image_collection`` URLs to your ``urls.py``
@@ -36,6 +37,7 @@ Add the ``image_collection`` URLs to your ``urls.py``
     urlpatterns = patterns('',
         ...
         url(r'^image-collection/', include('image_collection.urls')),
+        url(r'^pos/', include('generic_positions.urls')),
     )
 
 Before your tags/filters are available in your templates, load them by using
@@ -50,6 +52,7 @@ Don't forget to migrate your database
 .. code-block:: bash
 
     ./manage.py migrate image_collection
+    ./manage.py migrate generic_positions
 
 
 Usage

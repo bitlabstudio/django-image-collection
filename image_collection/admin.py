@@ -2,15 +2,22 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
+from generic_positions.admin import GenericPositionsAdmin
+
 from . import models
+
+
+class ImageInline(admin.TabularInline):
+    model = models.ImageSlide
 
 
 class ImageCollectionAdmin(admin.ModelAdmin):
     """Custom admin for the ``ImageCollection`` model."""
     list_display = ('identifier', 'name')
+    inlines = [ImageInline]
 
 
-class ImageSlideAdmin(admin.ModelAdmin):
+class ImageSlideAdmin(GenericPositionsAdmin):
     """Custom admin for the ``ImageSlide`` model."""
     list_display = (
         'collection', 'get_headline', 'get_caption', 'image', 'image_mobile')

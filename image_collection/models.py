@@ -1,6 +1,7 @@
 """Models for the image_collection app."""
 import re
 from django import forms
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
@@ -13,6 +14,7 @@ validate_relative_url = RegexValidator(
     relative_url_re,
     _("Enter a valid 'relative URL' consisting of letters, numbers,"
       " underscores, forward slashes or hyphens."), 'invalid')
+
 
 
 class RelativeURLFormField(forms.CharField):
@@ -220,6 +222,10 @@ class ImageSlide(models.Model):
     end_date = models.DateTimeField(
         verbose_name=_('unpublish date'),
         blank=True, null=True,
+    )
+
+    generic_position = GenericRelation(
+        'generic_positions.ObjectPosition'
     )
 
     def __str__(self):  # pragma: no cover
