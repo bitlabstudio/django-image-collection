@@ -21,6 +21,7 @@ class ImageSlideAdmin(GenericPositionsAdmin):
     """Custom admin for the ``ImageSlide`` model."""
     list_display = (
         'collection', 'get_headline', 'get_caption', 'image', 'image_mobile')
+    list_filter = ['collection']
 
     def get_caption(self, obj):
         return obj.caption

@@ -4,8 +4,12 @@
 
 
 {% block result_list %}
-    {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
+  {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
+  {% if request.GET.collection__id__exact %}
     {% position_result_list cl %}
-    {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
-    <input type="hidden" id="position_update_url" name="position_update_url" value="{% url "position_bulk_update" %}" />
+  {% else %}
+    {% result_list cl %}
+  {% endif %}
+  {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
+  <input type="hidden" id="position_update_url" name="position_update_url" value="{% url "position_bulk_update" %}"/>
 {% endblock %}
