@@ -19,6 +19,7 @@ class ImageCollectionAdmin(admin.ModelAdmin):
 
 class ImageSlideAdmin(GenericPositionsAdmin):
     """Custom admin for the ``ImageSlide`` model."""
+    change_list_template = 'image_collection/admin/change_list.html'
     list_display = (
         'collection', 'get_headline', 'get_caption', 'image', 'image_mobile')
     list_filter = ['collection']
