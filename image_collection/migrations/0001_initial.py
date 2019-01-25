@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('link', models.URLField(help_text='Enter URL, that the image should link to. (not required)', verbose_name='link')),
                 ('start_date', models.DateTimeField(null=True, verbose_name='publish date', blank=True)),
                 ('end_date', models.DateTimeField(null=True, verbose_name='unpublish date', blank=True)),
-                ('collection', models.ForeignKey(related_name='images', verbose_name='image collection', to='image_collection.ImageCollection')),
+                ('collection', models.ForeignKey(related_name='images', verbose_name='image collection', to='image_collection.ImageCollection', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('collection', 'start_date', 'end_date', 'alt_text'),

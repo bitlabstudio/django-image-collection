@@ -14,7 +14,7 @@ from fabric.colors import green, red
 
 if __name__ == '__main__':
     local('flake8 --ignore=E126 --ignore=W391 --statistics'
-          ' --exclude=submodules,migrations,build .')
+          ' --exclude=submodules,migrations,build,.tox,setup.py .')
     local('coverage run --source="image_collection" manage.py test -v 2'
           ' --traceback --failfast --settings=image_collection.tests.settings'
           ' --pattern="*_tests.py"')

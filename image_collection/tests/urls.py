@@ -1,10 +1,8 @@
 """URLs to run the tests."""
-from compat import include, url
 from django.contrib import admin
+from django.urls import path
 
-
-admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    path(r'admin/', admin.site.urls),
 ]

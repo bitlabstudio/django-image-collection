@@ -16,7 +16,6 @@ validate_relative_url = RegexValidator(
       " underscores, forward slashes or hyphens."), 'invalid')
 
 
-
 class RelativeURLFormField(forms.CharField):
     default_validators = [validate_relative_url]
 
@@ -145,6 +144,7 @@ class ImageSlide(models.Model):
         ImageCollection,
         verbose_name=_('image collection'),
         related_name='images',
+        on_delete=models.CASCADE
     )
 
     image = models.ImageField(

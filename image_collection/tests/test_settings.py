@@ -50,6 +50,7 @@ EXTERNAL_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
+    'generic_positions',
 ]
 
 INTERNAL_APPS = [
