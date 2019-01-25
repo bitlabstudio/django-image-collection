@@ -1,3 +1,7 @@
+=== 0.3.X (onggoing, to be released as 0.4) ===
+
+- package is now only compatible with Django>=2.1
+
 === 0.1.X (onggoing, to be released as 0.2) ===
 
 - fixed override of generic positions admin template
